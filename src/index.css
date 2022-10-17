@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#root {
+    @apply grid place-items-center h-screen;
+}
+
+.container {
+    @apply w-[450px] h-full;
+}
+
+a {
+    @apply transition-all duration-200 ease-linear;
+}
+
+a:hover {
+    @apply text-orange-300;
+}

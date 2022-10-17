@@ -4,12 +4,14 @@
 
 
 #root {
-    @apply grid place-items-center h-screen;
+    @apply flex items-start justify-center h-screen;
 }
 
 .container {
     grid-template-rows: auto 1fr auto;
-    @apply w-[450px] h-[600px];
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    @apply w-[450px] h-[600px] my-2 overflow-y-scroll;
 }
 
 a {

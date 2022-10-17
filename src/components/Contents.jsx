@@ -1,9 +1,10 @@
-import React from 'react'
+import ListContents from './ListContents'
 
 const Contents = () => {
     return (
-        <div className="w-full overflow-y-scroll">
-        </div>
+        <main className="w-full h-full bg-white">
+            <ListContents />
+        </main>
     )
 }
 

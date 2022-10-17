@@ -21,3 +21,21 @@ a {
 a:hover {
     @apply text-orange-300;
 }
+
+.new-post input,
+textarea {
+    @apply w-full rounded-md;
+}
+
+.new-post input:focus,
+textarea:focus {
+    @apply outline-none w-full;
+}
+
+.new-post input {
+    @apply h-8;
+}
+
+textarea {
+    @apply h-52 resize-none;
+}

@@ -1,6 +1,7 @@
 import Header from "./components/Header"
 import Contents from "./components/Contents"
 import Footer from "./components/Footer"
+import Post from './components/Post'
 
 function App() {
   const newDate = new Date()
@@ -12,11 +13,13 @@ function App() {
   const month = months[newDate.getMonth()]
 
   const getFullDate = `${month} ${newDate.getDate()}, ${newDate.getFullYear()}. ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
+
   return (
     <>
       <div className="container">
         <Header />
-        <Contents getFullDate={getFullDate} />
+        {/* <Contents getFullDate={getFullDate} /> */}
+        <Post />
         <Footer />
       </div>
     </>

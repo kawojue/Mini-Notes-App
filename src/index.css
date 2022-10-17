@@ -8,7 +8,8 @@
 }
 
 .container {
-    @apply w-[450px] h-full;
+    grid-template-rows: auto 1fr auto;
+    @apply w-[450px] h-[600px];
 }
 
 a {

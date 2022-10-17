@@ -14,6 +14,10 @@
     @apply grid w-[450px] h-[600px] my-2;
 }
 
+.trans {
+    @apply transition-all ease-linear duration-300;
+}
+
 a {
     @apply transition-all duration-200 ease-linear;
 }
@@ -22,9 +26,13 @@ a:hover {
     @apply text-orange-300;
 }
 
+label {
+    @apply text-xl text-slate-600 tracking-wider;
+}
+
 .new-post input,
 textarea {
-    @apply w-full rounded-md;
+    @apply w-full rounded-md font-medium text-slate-500;
 }
 
 .new-post input:focus,
@@ -37,5 +45,5 @@ textarea:focus {
 }
 
 textarea {
-    @apply h-52 resize-none;
+    @apply h-48 resize-none;
 }

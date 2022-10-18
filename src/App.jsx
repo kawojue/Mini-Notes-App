@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import Contents from "./components/Contents"
 import Posts from './components/Posts'
 import About from "./components/About"
+import Post from './components/Post'
 import Structure from './components/Structure'
 import NotFound from './components/NotFound'
 
@@ -17,7 +18,7 @@ function App() {
     {
       id: 1,
       title: "my first post",
-      content: "Lorem ipsum dolor sit amet consectetur...",
+      content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, soluta iste aliquam, doloremque, voluptate est autem aliquid sed dolor corporis delectus amet voluptates voluptatem provident. Quas itaque sint a atque quasi, libero consequatur voluptatibus aliquid quia eius explicabo dignissimos, placeat doloremque corrupti. Accusamus ducimus porro itaque ea, eum facilis maxime aut cupiditate aperiam omnis! Deserunt.",
       date: getFullDate
     }
   ])
@@ -34,7 +35,6 @@ function App() {
     })
 
     const getMax = Math.max(...IDList)
-
     for (let i = 1; i <= getMax; i++) {
       if (!IDList.includes(i)) {
         newArr.push(i)
@@ -48,7 +48,6 @@ function App() {
     }
 
     const newPost = { id, title: title.trim(), content: content.trim(), date: getFullDate }
-
     setPosts([...posts, newPost])
 
     nav('/')
@@ -61,14 +60,17 @@ function App() {
 
   // }
 
+  const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))
+
   return (
     <div className="container">
       <Routes>
         <Route path="/" element={<Structure search={search} onSetSearch={setSearch} />}>
-          <Route path="/" element={<Contents posts={posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))} />} />
-          <Route path="home" element={<Contents posts={posts} />} />
+          <Route index element={<Contents posts={handleSearch} />} />
+          <Route path="home" element={<Contents posts={handleSearch} />} />
           <Route path="post" element={<Posts posts={posts} title={title} setTitle={setTitle} content={content} setContent={setContent} onAddPost={addPost} />} />
           <Route path="about" element={<About />} />
+          <Route path="/post/:id" element={<Post />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

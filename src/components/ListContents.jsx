@@ -14,7 +14,7 @@ const ListContents = ({ posts }) => {
                         </p>
                     </div>
                     <div>
-                        <h4>{post.content.slice(0, 35) + "..."}</h4>
+                        <h4>{post.content.split('').length > 35 ? `${post.content.slice(0, 35) + "..."}` : post.content}</h4>
                     </div>
                 </article>
             ))}

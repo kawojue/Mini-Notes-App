@@ -9,13 +9,17 @@
 
 .container {
     grid-template-rows: auto 1fr auto;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    @apply grid w-[450px] h-[600px] my-2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    @apply grid max-w-[500px] w-[95vw] h-[615px] my-2 rounded-lg overflow-hidden;
 }
 
 .trans {
     @apply transition-all ease-linear duration-300;
+}
+
+h2 {
+    @apply text-3xl font-medium text-slate-600;
 }
 
 a {

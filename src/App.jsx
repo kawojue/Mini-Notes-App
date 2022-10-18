@@ -2,6 +2,7 @@ import Header from "./components/Header"
 import Contents from "./components/Contents"
 import Footer from "./components/Footer"
 import Post from './components/Post'
+import About from "./components/About"
 
 function App() {
   const newDate = new Date()
@@ -18,8 +19,9 @@ function App() {
     <>
       <div className="container">
         <Header />
-        {/* <Contents getFullDate={getFullDate} /> */}
-        <Post />
+        <Contents getFullDate={getFullDate} />
+        {/* <Post /> */}
+        {/* <About /> */}
         <Footer />
       </div>
     </>

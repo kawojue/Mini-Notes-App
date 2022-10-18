@@ -1,10 +1,30 @@
-const Post = () => {
+import { useParams, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+
+const Post = ({ posts, setPosts }) => {
+    console.log(posts)
+    const postID = useParams().id
+    const nav = useNavigate()
+    const [postContent, setPostContent] = useState([])
+
+    const handlePost = id => {
+        setPostContent([...posts.filter(post => post.id === id)])
+    }
+
+    handlePost(postID)
+
+    const deletePost = id => {
+        const newPost = [...posts.filter(post => post.id !== id)]
+        setPosts(newPost)
+        nav('/')
+    }
+
+
     return (
         <article className="p-5">
-            <h2>Header</h2>
-            <p className="mt-5 text-slate-600 text-lg">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, soluta iste aliquam, doloremque, voluptate est autem aliquid sed dolor corporis delectus amet voluptates voluptatem provident. Quas itaque sint a atque quasi, libero consequatur voluptatibus aliquid quia eius explicabo dignissimos, placeat doloremque corrupti. Accusamus ducimus porro itaque ea, eum facilis maxime aut cupiditate aperiam omnis! Deserunt.
-            </p>
+            <h2 className="capitalize mb-5">{postContent[0].title}</h2>
+            <p className="mt-5 text-slate-600 text-lg mb-5">{postContent[0].content}</p>
+            <button className="btn trans" onClick={() => deletePost(postID)}>Delete</button>
         </article>
     )
 }

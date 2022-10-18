@@ -1,9 +1,9 @@
 import ListContents from './ListContents'
 
-const Contents = ({ getFullDate }) => {
+const Contents = ({ posts }) => {
     return (
         <main className="bg-white overflow-y-auto">
-            <ListContents getFullDate={getFullDate} />
+            <ListContents getFullDate={getFullDate} posts={posts} />
         </main>
     )
 }

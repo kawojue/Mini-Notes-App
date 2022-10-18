@@ -1,24 +1,14 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import Header from "./components/Header"
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { format } from 'date-fns'
 import Contents from "./components/Contents"
-import Footer from "./components/Footer"
-import Post from './components/Post'
+import Posts from './components/Posts'
 import About from "./components/About"
+import Structure from './components/Structure'
+import NotFound from './components/NotFound'
 
 function App() {
-  const [fullDate, setFullDate] = useState("")
-  // const [newPost, setNewPost] = useState("")
-
-  const newDate = new Date()
-  const months = [
-    "Jan", "Feb", "Mar", "Apr",
-    "May", "Jun", "Jul", "Aug",
-    "Sept", "Oct", "Nov", "Dec",
-  ];
-  const month = months[newDate.getMonth()]
-
-  const getFullDate = `${month} ${newDate.getDate()}, ${newDate.getFullYear()}. ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
+  const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
 
   const [posts, setPosts] = useState([
     {
@@ -32,14 +22,17 @@ function App() {
 
 
   return (
-    <>
-      <div className="container">
-        <Header />
-        {/* <Contents posts={posts} /> */}
-        <Post posts={posts} onSetPosts={setPosts} getFullDate={getFullDate} />
-        <Footer />
-      </div>
-    </>
+    <div className="container">
+      <Routes>
+        <Route path="/" element={<Structure />}>
+          <Route path="/" element={<Contents posts={posts} />} />
+          <Route path="home" element={<Contents posts={posts} />} />
+          <Route path="post" element={<Posts posts={posts} onSetPosts={setPosts} getFullDate={getFullDate} />} />
+          <Route path="about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </div>
   )
 }
 

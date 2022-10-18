@@ -9,7 +9,7 @@ import NotFound from './components/NotFound'
 
 function App() {
   const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
-
+  const [search, setSearch] = useState("")
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -24,8 +24,8 @@ function App() {
   return (
     <div className="container">
       <Routes>
-        <Route path="/" element={<Structure />}>
-          <Route path="/" element={<Contents posts={posts} />} />
+        <Route path="/" element={<Structure search={search} onSetSearch={setSearch} />}>
+          <Route path="/" element={<Contents posts={posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))} />} />
           <Route path="home" element={<Contents posts={posts} />} />
           <Route path="post" element={<Posts posts={posts} onSetPosts={setPosts} getFullDate={getFullDate} />} />
           <Route path="about" element={<About />} />

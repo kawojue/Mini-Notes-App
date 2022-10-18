@@ -18,6 +18,14 @@
     @apply transition-all ease-linear duration-300;
 }
 
+.btn {
+    @apply py-1 px-4 bg-orange-500 rounded-md tracking-widest text-white text-xl;
+}
+
+.btn:hover {
+    @apply bg-orange-300 text-slate-800;
+}
+
 h2 {
     @apply text-3xl font-medium text-slate-600;
 }

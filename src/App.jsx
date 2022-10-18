@@ -11,7 +11,7 @@ import NotFound from './components/NotFound'
 function App() {
   const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
   const [search, setSearch] = useState("")
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const nav = useNavigate()
   const [posts, setPosts] = useState([
@@ -19,6 +19,12 @@ function App() {
       id: 1,
       title: "my first post",
       content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, soluta iste aliquam, doloremque, voluptate est autem aliquid sed dolor corporis delectus amet voluptates voluptatem provident. Quas itaque sint a atque quasi, libero consequatur voluptatibus aliquid quia eius explicabo dignissimos, placeat doloremque corrupti. Accusamus ducimus porro itaque ea, eum facilis maxime aut cupiditate aperiam omnis! Deserunt.",
+      date: getFullDate
+    },
+    {
+      id: 2,
+      title: "my love",
+      content: "I love that girl so much :)",
       date: getFullDate
     }
   ])
@@ -51,14 +57,10 @@ function App() {
     setPosts([...posts, newPost])
 
     nav('/')
-    window.location.reload()
+    // window.location.reload()
     setContent("")
     setTitle("")
   }
-
-  // const handlePost = (id) => {
-
-  // }
 
   const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))
 
@@ -70,7 +72,7 @@ function App() {
           <Route path="home" element={<Contents posts={handleSearch} />} />
           <Route path="post" element={<Posts posts={posts} title={title} setTitle={setTitle} content={content} setContent={setContent} onAddPost={addPost} />} />
           <Route path="about" element={<About />} />
-          <Route path="/post/:id" element={<Post />} />
+          <Route path="/post/:id" element={<Post posts={posts} setPosts={setPosts} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

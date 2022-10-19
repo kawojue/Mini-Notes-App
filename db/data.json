@@ -1,0 +1,8 @@
+{
+    "posts": [{
+        "id": "1",
+        "title": "My First Server Post.",
+        "content": "Well, we wouldn't lose our posts when we reload.",
+        "date": "October 19, 2022 10:46:37 PM"
+    }]
+}

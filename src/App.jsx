@@ -16,12 +16,6 @@ function App() {
   const nav = useNavigate()
   const [posts, setPosts] = useState([
     {
-      id: 1,
-      title: "my first post",
-      content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, soluta iste aliquam, doloremque, voluptate est autem aliquid sed dolor corporis delectus amet voluptates voluptatem provident. Quas itaque sint a atque quasi, libero consequatur voluptatibus aliquid quia eius explicabo dignissimos, placeat doloremque corrupti. Accusamus ducimus porro itaque ea, eum facilis maxime aut cupiditate aperiam omnis! Deserunt.",
-      date: getFullDate
-    },
-    {
       id: 2,
       title: "my love",
       content: "I love that girl so much :)",
@@ -57,7 +51,6 @@ function App() {
     setPosts([...posts, newPost])
 
     nav('/')
-    // window.location.reload()
     setContent("")
     setTitle("")
   }

@@ -1,29 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import Contents from "./components/Contents"
-import Posts from './components/Posts'
-import About from "./components/About"
 import Post from './components/Post'
+import Posts from './components/Posts'
+import About from './components/About'
 import Structure from './components/Structure'
 import NotFound from './components/NotFound'
 
 function App() {
   const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
+  const API_URL = "http://localhost:5500/posts"
+  const nav = useNavigate()
   const [search, setSearch] = useState("")
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  const nav = useNavigate()
-  const [posts, setPosts] = useState([
-    {
-      id: 2,
-      title: "my love",
-      content: "I love that girl so much :)",
-      date: getFullDate
+  const [posts, setPosts] = useState([])
+  const [fetchErr, setFetchErr] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(API_URL)
+        return await res.json()
+      } catch (err) {
+        setFetchErr(err.msg)
+      }
     }
-  ])
 
+    const getPosts = async () => {
+      const data = await fetchPosts()
+      setPosts(data)
+    }
 
+    setTimeout(() => {
+      getPosts()
+      setIsLoading(false)
+    }, 1000)
+  }, [])
 
   const addPost = e => {
     e.preventDefault()

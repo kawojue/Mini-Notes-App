@@ -11,12 +11,12 @@ import NotFound from './components/NotFound'
 
 function App() {
   const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
-  const API_URL = "http://localhost:5500/postss"
+  const API_URL = "http://localhost:5500/posts"
   const nav = useNavigate()
   const [search, setSearch] = useState("")
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  const [fetchErr, setFetchErr] = useState(false)
+  const [fetchErr, setFetchErr] = useState(null)
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -26,20 +26,16 @@ function App() {
         const res = await fetch(API_URL)
         const data = await res.json()
         if (!res.ok) throw new Error("Please, reload the page.")
-        return data
+        setPosts(data)
       } catch (err) {
-        setFetchErr(true)
+        setFetchErr("Please, reload the page.")
       }
     }
 
-    const getPosts = async () => {
-      const data = await fetchPosts()
-      setPosts(data)
-      setIsLoading(false)
-    }
 
     setTimeout(() => {
-      getPosts()
+      (async () => await fetchPosts())()
+      setIsLoading(false)
     }, 1000)
   }, [])
 

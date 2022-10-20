@@ -1,9 +1,9 @@
 import ListContents from './ListContents'
 
-const Contents = ({ posts }) => {
+const Contents = ({ posts, fetchErr, isLoading }) => {
     return (
         <main className="bg-white overflow-y-auto">
-            <ListContents posts={posts} />
+            <ListContents posts={posts} fetchErr={fetchErr} isLoading={isLoading} />
         </main>
     )
 }

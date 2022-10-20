@@ -7,6 +7,7 @@ import Posts from './components/Posts'
 import About from './components/About'
 import Structure from './components/Structure'
 import NotFound from './components/NotFound'
+import { fillID } from './fillID'
 
 function App() {
   const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
@@ -42,27 +43,8 @@ function App() {
 
   const addPost = e => {
     e.preventDefault()
-
-    let id = 0
-    const [IDList, newArr] = [[], []]
-    posts.forEach(post => {
-      IDList.push(post.id)
-    })
-
-    const getMax = Math.max(...IDList)
-    for (let i = 1; i <= getMax; i++) {
-      if (!IDList.includes(i)) {
-        newArr.push(i)
-      }
-    }
-
-    if (posts.length === getMax || posts.length === 0) {
-      id = posts.length + 1
-    } else {
-      id = newArr[0]
-    }
-
     const newPost = { id, title: title.trim(), content: content.trim(), date: getFullDate }
+    const id = fillID(posts)
     setPosts([...posts, newPost])
 
     nav('/')

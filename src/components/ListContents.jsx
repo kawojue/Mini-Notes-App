@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 const ListContents = ({ posts, fetchErr, isLoading }) => {
+    console.log(posts)
     return (
         <>
             {!fetchErr ?

@@ -18,6 +18,10 @@
     @apply transition-all ease-linear duration-300;
 }
 
+.info {
+    @apply text-xl text-center font-medium;
+}
+
 .btn {
     @apply py-1 px-4 bg-orange-500 rounded-md tracking-widest text-white text-xl;
 }

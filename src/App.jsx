@@ -59,7 +59,6 @@ function App() {
     })
 
     nav('/')
-
   }
 
   const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))

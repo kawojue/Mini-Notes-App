@@ -5,12 +5,12 @@ const Post = ({ posts, setPosts }) => {
     const url = "http://localhost:5500/posts"
     const nav = useNavigate()
     const { id } = useParams()
-    const [post, setPost] = useState([])
+    const [post, setPost] = useState({})
 
     const getPostByID = async id => {
         const res = await fetch(`${url}/${id}`)
         const data = await res.json()
-        setPost([data])
+        setPost(data)
     }
 
     useEffect(() => {
@@ -31,8 +31,8 @@ const Post = ({ posts, setPosts }) => {
 
     return (
         <article className="p-5">
-            <h2 className="capitalize mb-5">{post[0].title}</h2>
-            <p className="mt-5 text-slate-600 text-lg mb-5">{post[0].content}</p>
+            <h2 className="capitalize mb-5">{post.title}</h2>
+            <p className="mt-5 text-slate-600 text-lg mb-5">{post.content}</p>
             <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
         </article>
     )

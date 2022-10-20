@@ -3,12 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom'
 const Post = ({ posts, setPosts }) => {
     const { id } = useParams()
     const nav = useNavigate()
-
     const activePost = posts.filter(post => post.id == id)
 
     const deletePost = id => {
         const newPost = [...posts.filter(post => post.id != id)]
-        console.log(id)
         setPosts(newPost)
         nav('/')
     }

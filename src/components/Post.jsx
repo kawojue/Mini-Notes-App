@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { formatFetch } from '../formatFetch'
 
 const Post = ({ posts, setPosts }) => {
     const url = "http://localhost:5500/posts"
     const nav = useNavigate()
     const { id } = useParams()
     const [post, setPost] = useState({})
-    const format = (url, id) => {
-        return `${url}/${id}`
-    }
 
     const getPostByID = async id => {
-        const res = await fetch(format(url, id))
+        const res = await fetch(formatFetch(url, id))
         const data = await res.json()
         setPost(data)
     }
@@ -24,7 +22,7 @@ const Post = ({ posts, setPosts }) => {
         const post = [...posts.filter(post => post.id != id)]
         setPosts(post)
 
-        await fetch(format(url, id), {
+        await fetch(formatFetch(url, id), {
             method: 'DELETE'
         })
         nav('/')

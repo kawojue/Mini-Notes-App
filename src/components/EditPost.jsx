@@ -1,10 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { formatFetch } from '../formatFetch'
 
-const EditPost = ({ url, posts, setPosts, getFullDateTime }) => {
-    const [editTitle, setEditTitle] = useState("")
-    const [editContent, setEditContent] = useState("")
+const EditPost = ({ url, posts, setPosts, editTitle, setEditTitle, editContent, setEditContent, getFullDateTime, countEditContent }) => {
     const { id } = useParams()
     const nav = useNavigate()
 
@@ -22,8 +20,7 @@ const EditPost = ({ url, posts, setPosts, getFullDateTime }) => {
     const handleEdit = async e => {
         e.preventDefault()
         const newPosts = posts.map(post => post.id == id ? { id: parseInt(id), title: editTitle, content: editContent, datetime: getFullDateTime } : post)
-        const activePost = posts.filter(post => post.id == id)
-        console.log(activePost)
+        const activePost = newPosts.filter(post => post.id == id)
         setPosts(newPosts)
         nav(`/post/${id}`)
 
@@ -34,6 +31,8 @@ const EditPost = ({ url, posts, setPosts, getFullDateTime }) => {
             },
             body: JSON.stringify(activePost[0])
         })
+
+        window.location.reload()
     }
 
     return (
@@ -46,10 +45,10 @@ const EditPost = ({ url, posts, setPosts, getFullDateTime }) => {
                 </div>
                 <div className='relative'>
                     <label htmlFor="content">Post:</label>
-                    <p className="absolute top-0 right-0"></p>
+                    <p className="absolute top-0 right-0 text-sm">{countEditContent}</p>
                     <textarea id="content" value={editContent} onChange={(e) => setEditContent(e.target.value)} required ></textarea>
                 </div>
-                <button type="submit" className="btn trans">Submit</button>
+                <button type="submit" className="btn trans">Edit</button>
             </article>
         </form>
     )

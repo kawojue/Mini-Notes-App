@@ -14,9 +14,7 @@ const Post = ({ posts, setPosts }) => {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            (async () => await getPostByID(id))()
-        }, 1000);
+        (async () => await getPostByID(id))()
     }, [])
 
     const deletePost = async id => {

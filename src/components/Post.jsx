@@ -44,7 +44,7 @@ const Post = ({ posts, setPosts, url }) => {
                     <p className='text-sm'>{datetime}</p>
                     <p className="mt-5 text-slate-600 text-lg mb-5">{content}</p>
                     <div className="flex gap-5">
-                        <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
+                        <button className="btn hover:bg-red-500 trans" onClick={() => deletePost(id)}>Delete</button>
                         <Link to={`/post/${id}/edit`} className="btn trans">Edit</Link>
                     </div>
                 </article> :

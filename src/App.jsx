@@ -16,11 +16,14 @@ function App() {
   const nav = useNavigate()
   const [posts, setPosts] = useState([])
   const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
   const [search, setSearch] = useState("")
-  const [counter, setCounter] = useState(0)
+  const [content, setContent] = useState("")
+  const [editTitle, setEditTitle] = useState("")
   const [fetchErr, setFetchErr] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [editContent, setEditContent] = useState("")
+  const [countContent, setCountContent] = useState(0)
+  const [countEditContent, setCountEditContent] = useState(0)
 
   const fetchPosts = async () => {
     try {
@@ -40,9 +43,11 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const splitted = content.split('')
-    setCounter(splitted.length)
-  }, [content])
+    const splitContent = content.split('')
+    const splitEditContent = editContent.split('')
+    setCountContent(splitContent.length)
+    setCountEditContent(splitEditContent.length)
+  }, [content, editContent])
 
   const addPost = async e => {
     e.preventDefault()
@@ -70,10 +75,10 @@ function App() {
         <Route path="/" element={<Structure search={search} onSetSearch={setSearch} />}>
           <Route index element={<Contents posts={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
           <Route path="home" element={<Contents posts={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
-          <Route path="post" element={<Posts title={title} setTitle={setTitle} content={content} setContent={setContent} counter={counter} onAddPost={addPost} />} />
+          <Route path="post" element={<Posts title={title} setTitle={setTitle} content={content} setContent={setContent} countContent={countContent} onAddPost={addPost} />} />
           <Route path="about" element={<About />} />
           <Route path="/post/:id" element={<Post posts={posts} setPosts={setPosts} url={url} />} />
-          <Route path="/post/:id/edit" element={<EditPost url={url} posts={posts} setPosts={setPosts} getFullDateTime={getFullDateTime} />} />
+          <Route path="/post/:id/edit" element={<EditPost url={url} posts={posts} setPosts={setPosts} editTitle={editTitle} setEditTitle={setEditTitle} editContent={editContent} setEditContent={setEditContent} getFullDateTime={getFullDateTime} countEditContent={countEditContent} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

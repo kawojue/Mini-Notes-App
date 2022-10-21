@@ -5,6 +5,7 @@ import { fillID } from './fillID'
 import Contents from "./components/Contents"
 import Post from './components/Post'
 import Posts from './components/Posts'
+import EditPost from './components/EditPost'
 import About from './components/About'
 import Structure from './components/Structure'
 import NotFound from './components/NotFound'
@@ -72,6 +73,7 @@ function App() {
           <Route path="post" element={<Posts title={title} setTitle={setTitle} content={content} setContent={setContent} counter={counter} onAddPost={addPost} />} />
           <Route path="about" element={<About />} />
           <Route path="/post/:id" element={<Post posts={posts} setPosts={setPosts} url={url} />} />
+          <Route path="/post/:id/edit" element={<EditPost />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

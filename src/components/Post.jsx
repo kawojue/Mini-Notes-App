@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const Post = ({ posts, setPosts }) => {
     const url = "http://localhost:5500/posts"
@@ -31,7 +31,10 @@ const Post = ({ posts, setPosts }) => {
         <article className="p-5">
             <h2 className="capitalize mb-5">{post.title}</h2>
             <p className="mt-5 text-slate-600 text-lg mb-5">{post.content}</p>
-            <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
+            <div className="flex gap-5">
+                <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
+                <Link to={`/post/${id}/edit`} className="btn trans">Edit</Link>
+            </div>
         </article>
     )
 }

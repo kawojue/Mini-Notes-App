@@ -1,15 +1,10 @@
 {
-  "posts": [{
+  "posts": [
+    {
       "id": 1,
       "title": "My First Server Post.",
       "content": "Well, we wouldn't lose our posts when we reload.",
       "date": "October 19, 2022 10:46:37 PM"
-    },
-    {
-      "id": 2,
-      "title": "Test!",
-      "content": "Well, I hope it works.",
-      "date": "October 20, 2022 12:39:48 PM"
     },
     {
       "id": 3,
@@ -28,6 +23,12 @@
       "title": "Well..",
       "content": "We gon' keep on testing till we fix the error then push to github and move to production",
       "date": "October 20, 2022 1:47:28 PM"
+    },
+    {
+      "id": 2,
+      "title": "Add Post Test!",
+      "content": "Well, let's see if it's going to work after adding a new post :)",
+      "date": "October 21, 2022 11:59:21 AM"
     }
   ]
 }

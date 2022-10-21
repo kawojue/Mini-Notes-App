@@ -12,7 +12,7 @@ import NotFound from './components/NotFound'
 
 function App() {
   const url = "http://localhost:5500/posts"
-  const getFullDate = format(new Date(), 'MMMM dd, yyyy pp')
+  const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
   const nav = useNavigate()
   const [posts, setPosts] = useState([])
   const [title, setTitle] = useState("")
@@ -48,7 +48,7 @@ function App() {
     e.preventDefault()
 
     const id = fillID(posts)
-    const newPost = { id, title: title.trim(), content: content.trim(), date: getFullDate }
+    const newPost = { id, title: title.trim(), content: content.trim(), datetime: getFullDateTime }
     setPosts([...posts, newPost])
 
     await fetch(url, {
@@ -73,7 +73,7 @@ function App() {
           <Route path="post" element={<Posts title={title} setTitle={setTitle} content={content} setContent={setContent} counter={counter} onAddPost={addPost} />} />
           <Route path="about" element={<About />} />
           <Route path="/post/:id" element={<Post posts={posts} setPosts={setPosts} url={url} />} />
-          <Route path="/post/:id/edit" element={<EditPost />} />
+          <Route path="/post/:id/edit" element={<EditPost url={url} posts={posts} setPosts={setPosts} getFullDateTime={getFullDateTime} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

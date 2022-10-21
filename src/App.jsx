@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
 import { fillID } from './fillID'
-import Contents from "./components/Contents"
 import Post from './components/Post'
-import Posts from './components/Posts'
-import EditPost from './components/EditPost'
 import About from './components/About'
-import Structure from './components/Structure'
+import Posts from './components/Posts'
+import { useState, useEffect } from 'react'
+import Contents from './components/Contents'
+import EditPost from './components/EditPost'
 import NotFound from './components/NotFound'
+import Structure from './components/Structure'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+
 
 function App() {
   const url = "http://localhost:5500/posts"
@@ -49,6 +50,8 @@ function App() {
     setCountEditContent(splitEditContent.length)
   }, [content, editContent])
 
+  const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))
+
   const addPost = async e => {
     e.preventDefault()
 
@@ -66,8 +69,6 @@ function App() {
 
     nav('/')
   }
-
-  const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))
 
   return (
     <div className="container">

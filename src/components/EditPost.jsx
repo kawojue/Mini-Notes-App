@@ -29,8 +29,6 @@ const EditPost = ({ url, posts, setPosts, editTitle, setEditTitle, editContent, 
         const newPosts = posts.map(post => post.id == id ? { id: parseInt(id), title: editTitle, content: editContent, datetime: getFullDateTime } : post)
         const activePost = newPosts.filter(post => post.id == id)
         setPosts(newPosts)
-        nav(`/post/${id}`)
-
         await fetch(formatFetch(url, id), {
             method: 'PATCH',
             headers: {
@@ -39,6 +37,7 @@ const EditPost = ({ url, posts, setPosts, editTitle, setEditTitle, editContent, 
             body: JSON.stringify(activePost[0])
         })
 
+        nav(`/post/${id}`)
         window.location.reload()
     }
 

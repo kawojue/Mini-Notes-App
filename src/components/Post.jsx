@@ -6,9 +6,12 @@ const Post = ({ posts, setPosts }) => {
     const nav = useNavigate()
     const { id } = useParams()
     const [post, setPost] = useState({})
+    const format = (url, id) => {
+        return `${url}/${id}`
+    }
 
     const getPostByID = async id => {
-        const res = await fetch(`${url}/${id}`)
+        const res = await fetch(format(url, id))
         const data = await res.json()
         setPost(data)
     }
@@ -21,7 +24,7 @@ const Post = ({ posts, setPosts }) => {
         const post = [...posts.filter(post => post.id != id)]
         setPosts(post)
 
-        await fetch(`${url}/${id}`, {
+        await fetch(format(url, id), {
             method: 'DELETE'
         })
         nav('/')

@@ -13,7 +13,7 @@ const ListContents = ({ posts, fetchErr, isLoading }) => {
                                         <Link to={`/post/${post.id}`}>{post.title}</Link>
                                     </h3>
                                     <p className="mt-1 text-[0.75rem]">
-                                        {post.date}
+                                        {post.datetime}
                                     </p>
                                 </div>
                                 <div>

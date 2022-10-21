@@ -50,7 +50,10 @@ function App() {
     setCountEditContent(splitEditContent.length)
   }, [content, editContent])
 
-  const handleSearch = posts.filter(post => ((post.title).toLowerCase()).includes(search.toLowerCase()))
+  const handleSearch = posts.filter(post =>
+    ((post.title).toLowerCase()).includes(search.toLowerCase()) ||
+    ((post.content).toLowerCase()).includes(search.toLowerCase()) ||
+    ((post.datetime).toLowerCase()).includes(search.toLowerCase()))
 
   const addPost = async e => {
     e.preventDefault()

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { formatFetch } from '../formatFetch'
+import { manageID } from '../manageID'
 
 const Post = ({ posts, setPosts, url }) => {
     const nav = useNavigate()
@@ -8,13 +9,6 @@ const Post = ({ posts, setPosts, url }) => {
     const [post, setPost] = useState({})
     const [msg, setMsg] = useState("")
     const { title, content, datetime } = post
-
-    const getIDS = []
-    posts.forEach(post => {
-        getIDS.push(post.id)
-    })
-
-    const manageID = getIDS.includes(parseInt(id))
 
     const getPostByID = async id => {
         try {
@@ -44,15 +38,17 @@ const Post = ({ posts, setPosts, url }) => {
 
     return (
         <>
-            {manageID ? <article className="p-5">
-                <h2 className="capitalize mb-5">{title}</h2>
-                <p className='text-sm'>{datetime}</p>
-                <p className="mt-5 text-slate-600 text-lg mb-5">{content}</p>
-                <div className="flex gap-5">
-                    <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
-                    <Link to={`/post/${id}/edit`} className="btn trans">Edit</Link>
-                </div>
-            </article> : <p>{msg}</p>}
+            {manageID(id, posts) ?
+                <article className="p-5">
+                    <h2 className="capitalize mb-5">{title}</h2>
+                    <p className='text-sm'>{datetime}</p>
+                    <p className="mt-5 text-slate-600 text-lg mb-5">{content}</p>
+                    <div className="flex gap-5">
+                        <button className="btn trans" onClick={() => deletePost(id)}>Delete</button>
+                        <Link to={`/post/${id}/edit`} className="btn trans">Edit</Link>
+                    </div>
+                </article> :
+                <p>{msg}</p>}
         </>
     )
 }

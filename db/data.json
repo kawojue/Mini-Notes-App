@@ -2,33 +2,9 @@
   "posts": [
     {
       "id": 1,
-      "title": "My First Server Post.",
-      "content": "Well, we wouldn't lose our posts when we reload.",
-      "datetime": "October 19, 2022 10:46:37 PM"
-    },
-    {
-      "id": 3,
-      "title": "New Post",
-      "content": "Another Post to Test!",
-      "datetime": "October 20, 2022 1:21:27 PM"
-    },
-    {
-      "id": 4,
-      "title": "OMG!",
-      "content": "Well, making another test Post.",
-      "datetime": "October 20, 2022 1:46:25 PM"
-    },
-    {
-      "id": 5,
-      "title": "Well..",
-      "content": "We gon' keep on testing till we fix the error then push to GitHub and move to production.",
-      "datetime": "October 21, 2022 2:47:04 PM"
-    },
-    {
-      "id": 2,
-      "title": "Add Post Test! Edited.",
-      "content": "Well, let's see if it's going to work after adding a new post :) Edited!",
-      "datetime": "October 21, 2022 3:18:12 PM"
+      "title": "Perfect!",
+      "content": "It looks like the app is now perfect.",
+      "datetime": "October 21, 2022 6:27:31 PM"
     }
   ]
 }

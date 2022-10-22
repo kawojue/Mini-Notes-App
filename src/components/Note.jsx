@@ -42,7 +42,7 @@ const Note = ({ notes, setNotes, url }) => {
         <>
             {manageID(id, notes) ?
                 <article className="p-5">
-                    <h2 className="capitalize mb-5">{title}</h2>
+                    <h2 className="capitalize mb-1">{title}</h2>
                     <p className='text-sm'>{datetime}</p>
                     <div className="my-5 text-slate-600 text-lg leading-tight">
                         {splittedContent.map((content, index) => (

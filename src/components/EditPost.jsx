@@ -26,7 +26,7 @@ const EditPost = ({ url, posts, setPosts, editTitle, setEditTitle, editContent, 
 
     const handleEdit = async e => {
         e.preventDefault()
-        const newPosts = posts.map(post => post.id == id ? { id: parseInt(id), title: editTitle, content: editContent, datetime: getFullDateTime } : post)
+        const newPosts = posts.map(post => post.id == id ? { id: parseInt(id), title: editTitle.trim(), content: editContent.trim(), datetime: getFullDateTime } : post)
         const activePost = newPosts.filter(post => post.id == id)
         setPosts(newPosts)
         await fetch(formatFetch(url, id), {

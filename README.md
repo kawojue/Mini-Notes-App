@@ -14,4 +14,4 @@ $ npm run dev
 
 $ cd Mini-Notes-App
 
-$ npx json-server -p 5500 -w db/data.json
+$ npm run server

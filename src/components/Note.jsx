@@ -3,20 +3,20 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { formatFetch } from '../formatFetch'
 import { manageID } from '../manageID'
 
-const Post = ({ posts, setPosts, url }) => {
+const Note = ({ notes, setNotes, url }) => {
     const nav = useNavigate()
     const { id } = useParams()
-    const [post, setPost] = useState({})
+    const [note, setNote] = useState({})
     const [msg, setMsg] = useState("")
     const [splittedContent, setSplittedContent] = useState([])
-    const { title, datetime } = post
+    const { title, datetime } = note
 
-    const getPostByID = async id => {
+    const getNote = async id => {
         try {
             const res = await fetch(formatFetch(url, id))
             if (!res.ok) throw new Error("Note not found!")
             const data = await res.json()
-            setPost(data)
+            setNote(data)
             setSplittedContent(data.content.split("\n"))
         } catch (err) {
             setMsg("Note not found!")
@@ -25,12 +25,12 @@ const Post = ({ posts, setPosts, url }) => {
     }
 
     useEffect(() => {
-        (async () => await getPostByID(id))()
+        (async () => await getNote(id))()
     }, [])
 
-    const deletePost = async id => {
-        const post = [...posts.filter(post => post.id != id)]
-        setPosts(post)
+    const deleteNote = async id => {
+        const note = [...notes.filter(note => note.id != id)]
+        setNotes(note)
 
         await fetch(formatFetch(url, id), {
             method: 'DELETE'
@@ -40,7 +40,7 @@ const Post = ({ posts, setPosts, url }) => {
 
     return (
         <>
-            {manageID(id, posts) ?
+            {manageID(id, notes) ?
                 <article className="p-5">
                     <h2 className="capitalize mb-5">{title}</h2>
                     <p className='text-sm'>{datetime}</p>
@@ -50,10 +50,10 @@ const Post = ({ posts, setPosts, url }) => {
                         ))}
                     </div>
                     <div className="flex gap-5">
-                        <button className="btn hover:bg-red-500 trans" onClick={() => deletePost(id)}>
+                        <button className="btn hover:bg-red-500 trans" onClick={() => deleteNote(id)}>
                             Delete
                         </button>
-                        <Link to={`/post/${id}/edit`} className="btn trans">
+                        <Link to={`/note/${id}/edit`} className="btn trans">
                             Edit
                         </Link>
                     </div>
@@ -63,4 +63,4 @@ const Post = ({ posts, setPosts, url }) => {
     )
 }
 
-export default Post
+export default Note

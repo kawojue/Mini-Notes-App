@@ -1,21 +1,21 @@
 import { format } from 'date-fns'
 import { fillID } from './fillID'
-import Post from './components/Post'
+import Note from './components/Note'
 import About from './components/About'
-import Posts from './components/Posts'
+import AddNote from './components/AddNote'
 import { useState, useEffect } from 'react'
 import Contents from './components/Contents'
-import EditPost from './components/EditPost'
+import EditNote from './components/EditNote'
 import NotFound from './components/NotFound'
 import Structure from './components/Structure'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 
 function App() {
-  const url = "http://localhost:5500/posts"
+  const url = "http://localhost:5500/notes"
   const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
   const nav = useNavigate()
-  const [posts, setPosts] = useState([])
+  const [notes, setNotes] = useState([])
   const [title, setTitle] = useState("")
   const [search, setSearch] = useState("")
   const [content, setContent] = useState("")
@@ -26,11 +26,11 @@ function App() {
   const [countContent, setCountContent] = useState(0)
   const [countEditContent, setCountEditContent] = useState(0)
 
-  const fetchPosts = async () => {
+  const fetchNotes = async () => {
     try {
       const res = await fetch(url)
       const data = await res.json()
-      setPosts(data)
+      setNotes(data)
     } catch (err) {
       setFetchErr("Please, reload the page.")
     }
@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      (async () => await fetchPosts())()
+      (async () => await fetchNotes())()
       setIsLoading(false)
     }, 1000)
   }, [])
@@ -50,24 +50,24 @@ function App() {
     setCountEditContent(splitEditContent.length)
   }, [content, editContent])
 
-  const handleSearch = posts.filter(post =>
-    ((post.title).toLowerCase()).includes(search.toLowerCase()) ||
-    ((post.content).toLowerCase()).includes(search.toLowerCase()) ||
-    ((post.datetime).toLowerCase()).includes(search.toLowerCase()))
+  const handleSearch = notes.filter(note =>
+    ((note.title).toLowerCase()).includes(search.toLowerCase()) ||
+    ((note.content).toLowerCase()).includes(search.toLowerCase()) ||
+    ((note.datetime).toLowerCase()).includes(search.toLowerCase()))
 
-  const addPost = async e => {
+  const addNote = async e => {
     e.preventDefault()
 
-    const id = fillID(posts)
-    const newPost = { id, title: title.trim(), content: content.trim(), datetime: getFullDateTime }
-    setPosts([...posts, newPost])
+    const id = fillID(notes)
+    const newNote = { id, title: title.trim(), content: content.trim(), datetime: getFullDateTime }
+    setNotes([...notes, newNote])
 
     await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newPost)
+      body: JSON.stringify(newNote)
     })
 
     nav('/')
@@ -77,12 +77,12 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<Structure search={search} onSetSearch={setSearch} />}>
-          <Route index element={<Contents posts={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
-          <Route path="home" element={<Contents posts={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
-          <Route path="post" element={<Posts title={title} setTitle={setTitle} content={content} setContent={setContent} countContent={countContent} onAddPost={addPost} />} />
+          <Route index element={<Contents notes={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
+          <Route path="home" element={<Contents notes={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
+          <Route path="note" element={<AddNote title={title} setTitle={setTitle} content={content} setContent={setContent} countContent={countContent} onAddNote={addNote} />} />
           <Route path="about" element={<About />} />
-          <Route path="/post/:id" element={<Post posts={posts} setPosts={setPosts} url={url} />} />
-          <Route path="/post/:id/edit" element={<EditPost url={url} posts={posts} setPosts={setPosts} editTitle={editTitle} setEditTitle={setEditTitle} editContent={editContent} setEditContent={setEditContent} getFullDateTime={getFullDateTime} countEditContent={countEditContent} />} />
+          <Route path="/note/:id" element={<Note notes={notes} setNotes={setNotes} url={url} />} />
+          <Route path="/note/:id/edit" element={<EditNote url={url} notes={notes} setNotes={setNotes} editTitle={editTitle} setEditTitle={setEditTitle} editContent={editContent} setEditContent={setEditContent} getFullDateTime={getFullDateTime} countEditContent={countEditContent} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

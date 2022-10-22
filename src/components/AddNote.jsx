@@ -1,14 +1,14 @@
-const Posts = ({ title, content, setTitle, setContent, onAddPost, countContent }) => {
+const AddNote = ({ title, content, setTitle, setContent, onAddNote, countContent }) => {
     return (
-        <form onSubmit={(e) => onAddPost(e)} className="new-post p-5">
-            <h2>New Post</h2>
+        <form onSubmit={(e) => onAddNote(e)} className="new-note p-5">
+            <h2>Add New Note</h2>
             <article className="flex flex-col gap-3 mt-5">
                 <div>
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" required value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className='relative'>
-                    <label htmlFor="content">Post:</label>
+                    <label htmlFor="content">Note:</label>
                     <p className="absolute top-0 right-0">{countContent}</p>
                     <textarea id="content" required value={content} onChange={(e) => setContent(e.target.value)} ></textarea>
                 </div>
@@ -18,4 +18,4 @@ const Posts = ({ title, content, setTitle, setContent, onAddPost, countContent }
     )
 }
 
-export default Posts
+export default AddNote

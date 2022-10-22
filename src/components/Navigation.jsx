@@ -9,7 +9,7 @@ const Navigation = ({ search, onSetSearch }) => {
                     <Link to="home">Home</Link>
                 </li>
                 <li>
-                    <Link to="post">Post</Link>
+                    <Link to="note">Note</Link>
                 </li>
                 <li>
                     <Link to="about">About</Link>

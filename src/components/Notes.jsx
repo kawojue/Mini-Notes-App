@@ -1,32 +1,32 @@
 import { Link } from 'react-router-dom'
 
-const ListContents = ({ posts, fetchErr, isLoading }) => {
+const Notes = ({ notes, fetchErr, isLoading }) => {
     return (
         <>
             {!fetchErr ?
                 <div>{!isLoading ?
-                    <div>{posts.length !== 0 ?
-                        <div>{posts.map(post => (
-                            <article key={post.id} className="flex flex-col gap-5 w-full px-4 py-3 border-b-[1.5px] border-slate-400 text-slate-600">
+                    <div>{notes.length !== 0 ?
+                        <div>{notes.map(note => (
+                            <article key={note.id} className="flex flex-col gap-5 w-full px-4 py-3 border-b-[1.5px] border-slate-400 text-slate-600">
                                 <div>
                                     <h3 className="capitalize w-fit tracking-wider text-2xl font-medium cursor-pointer">
-                                        <Link to={`/post/${post.id}`} className="hover:text-black">{post.title}</Link>
+                                        <Link to={`/note/${note.id}`} className="hover:text-black">{note.title}</Link>
                                     </h3>
                                     <p className="mt-1 text-[0.75rem]">
-                                        {post.datetime}
+                                        {note.datetime}
                                     </p>
                                 </div>
                                 <div>
                                     <h4>
-                                        {post.content.split('').length > 35 ?
-                                            `${post.content.slice(0, 35) + "..."}` :
-                                            post.content}
+                                        {note.content.split('').length > 35 ?
+                                            `${note.content.slice(0, 35) + "..."}` :
+                                            note.content}
                                     </h4>
                                 </div>
                             </article>
                         ))} </div> :
                         <h3 className='info'>
-                            Go to Post to make a new post.
+                            Go to Note to make a new note.
                         </h3>} </div> :
                     <h3 className='info'>
                         Loading...
@@ -39,4 +39,4 @@ const ListContents = ({ posts, fetchErr, isLoading }) => {
     )
 }
 
-export default ListContents
+export default Notes

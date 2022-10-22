@@ -46,17 +46,17 @@ label {
     @apply text-xl text-slate-600 tracking-wider;
 }
 
-.new-post input,
+.new-note input,
 textarea {
     @apply w-full rounded-md font-medium text-slate-500;
 }
 
-.new-post input:focus,
+.new-note input:focus,
 textarea:focus {
     @apply outline-none w-full;
 }
 
-.new-post input {
+.new-note input {
     @apply h-8;
 }
 

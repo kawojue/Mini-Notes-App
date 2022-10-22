@@ -1,9 +1,9 @@
-import ListContents from './ListContents'
+import Notes from './Notes'
 
-const Contents = ({ posts, fetchErr, isLoading }) => {
+const Contents = ({ notes, fetchErr, isLoading }) => {
     return (
         <main className="bg-white overflow-y-auto">
-            <ListContents posts={posts} fetchErr={fetchErr} isLoading={isLoading} />
+            <Notes notes={notes} fetchErr={fetchErr} isLoading={isLoading} />
         </main>
     )
 }

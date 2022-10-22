@@ -8,6 +8,7 @@ import Contents from './components/Contents'
 import EditNote from './components/EditNote'
 import NotFound from './components/NotFound'
 import Structure from './components/Structure'
+import useWindowSize from './hooks/useWindowSize'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 
@@ -25,6 +26,7 @@ function App() {
   const [editContent, setEditContent] = useState("")
   const [countContent, setCountContent] = useState(0)
   const [countEditContent, setCountEditContent] = useState(0)
+  const width = useWindowSize()
 
   const fetchNotes = async () => {
     try {
@@ -79,7 +81,7 @@ function App() {
   return (
     <div className="container">
       <Routes>
-        <Route path="/" element={<Structure search={search} onSetSearch={setSearch} />}>
+        <Route path="/" element={<Structure search={search} onSetSearch={setSearch} width={width} />}>
           <Route index element={<Contents notes={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
           <Route path="home" element={<Contents notes={handleSearch} fetchErr={fetchErr} isLoading={isLoading} />} />
           <Route path="note" element={<AddNote title={title} setTitle={setTitle} content={content} setContent={setContent} countContent={countContent} onAddNote={addNote} />} />

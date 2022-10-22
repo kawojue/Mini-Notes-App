@@ -43,18 +43,6 @@ function App() {
     }, 1000)
   }, [])
 
-  useEffect(() => {
-    const splitContent = content.split('')
-    const splitEditContent = editContent.split('')
-    setCountContent(splitContent.length)
-    setCountEditContent(splitEditContent.length)
-  }, [content, editContent])
-
-  const handleSearch = notes.filter(note =>
-    ((note.title).toLowerCase()).includes(search.toLowerCase()) ||
-    ((note.content).toLowerCase()).includes(search.toLowerCase()) ||
-    ((note.datetime).toLowerCase()).includes(search.toLowerCase()))
-
   const addNote = async e => {
     e.preventDefault()
 
@@ -70,8 +58,23 @@ function App() {
       body: JSON.stringify(newNote)
     })
 
+    setTitle("")
+    setContent("")
+
     nav('/')
   }
+
+  const handleSearch = notes.filter(note =>
+    ((note.title).toLowerCase()).includes(search.toLowerCase()) ||
+    ((note.content).toLowerCase()).includes(search.toLowerCase()) ||
+    ((note.datetime).toLowerCase()).includes(search.toLowerCase()))
+
+  useEffect(() => {
+    const splitContent = content.split('')
+    const splitEditContent = editContent.split('')
+    setCountContent(splitContent.length)
+    setCountEditContent(splitEditContent.length)
+  }, [content, editContent])
 
   return (
     <div className="container">

@@ -41,7 +41,7 @@ const Note = ({ notes, setNotes, url }) => {
     return (
         <>
             {manageID(id, notes) ?
-                <article className="p-5">
+                <article className="p-5 overflow-auto">
                     <h2 className="capitalize mb-1">{title}</h2>
                     <p className='text-sm'>{datetime}</p>
                     <div className="my-5 text-slate-600 text-lg leading-tight">

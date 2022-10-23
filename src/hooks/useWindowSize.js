@@ -7,7 +7,6 @@ const useWindowSize = () => {
     };
     
     useEffect(() => {
-        console.log("useEffect")
         window.addEventListener('resize', checksize)
         return () => {
             window.removeEventListener('resize', checksize)

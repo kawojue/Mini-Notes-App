@@ -4,9 +4,9 @@ const Notes = ({ notes, fetchErr, isLoading }) => {
     return (
         <>
             {!fetchErr ?
-                <div>{!isLoading ?
-                    <div>{notes.length !== 0 ?
-                        <div>{notes.map(note => (
+                <>{!isLoading ?
+                    <>{notes.length !== 0 ?
+                        <>{notes.map(note => (
                             <Link key={note.id} to={`/note/${note.id}`} className="flex flex-col gap-5 w-full px-4 py-3 border-b-[1.5px] border-slate-400 text-slate-600 hover:text-black">
                                 <div>
                                     <h3 className="capitalize w-fit tracking-wider text-2xl font-medium cursor-pointer">
@@ -24,14 +24,14 @@ const Notes = ({ notes, fetchErr, isLoading }) => {
                                     </h4>
                                 </div>
                             </Link>
-                        ))} </div> :
+                        ))} </> :
                         <h3 className='info'>
                             Go to Note to make a new note.
-                        </h3>} </div> :
+                        </h3>} </> :
                     <h3 className='info'>
                         Loading...
                     </h3>}
-                </div> :
+                </> :
                 <h3 className='info'>
                     {fetchErr}
                 </h3>}

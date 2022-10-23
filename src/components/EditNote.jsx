@@ -47,17 +47,17 @@ const EditNote = ({ url, notes, setNotes, editTitle, setEditTitle, editContent, 
     return (
         <>
             {manageID(id, notes) ?
-                <form onSubmit={(e) => handleEdit(e)} className="new-note p-5">
+                <form onSubmit={(e) => handleEdit(e)} className="new-note p-5 overflow-auto">
                     <h2>Edit Note</h2>
                     <article className="flex flex-col gap-3 mt-5">
                         <div>
                             <label htmlFor="title">Title:</label>
-                            <input type="text" id="title" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} required />
+                            <input type="text" id="title" value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
                         </div>
                         <div className='relative'>
                             <label htmlFor="content">Note:</label>
                             <p className="absolute top-0 right-0 text-sm">{countEditContent}</p>
-                            <textarea id="content" value={editContent} onChange={(e) => setEditContent(e.target.value)} required ></textarea>
+                            <textarea id="content" value={editContent} onChange={(e) => setEditContent(e.target.value)} ></textarea>
                         </div>
                         <button type="submit" className="btn trans">Edit</button>
                     </article>

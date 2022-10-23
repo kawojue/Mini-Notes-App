@@ -11,7 +11,7 @@
     grid-template-rows: auto 1fr auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
         rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    @apply grid max-w-[500px] w-[95vw] h-[615px] my-3 rounded-lg overflow-hidden;
+    @apply grid max-w-[500px] w-[95vw] h-[95vh] max-h-[640px] my-3 rounded-lg overflow-hidden;
 }
 
 .trans {

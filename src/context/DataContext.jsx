@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router-dom'
 const DataContext = createContext({})
 
 export const DataProvider = ({ children }) => {
-    const url = "http://localhost:5500/notes"
-    const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
     const nav = useNavigate()
+    const width = useWindowSize()
     const [notes, setNotes] = useState([])
     const [title, setTitle] = useState("")
     const [search, setSearch] = useState("")
+    const url = "http://localhost:5500/notes"
     const [content, setContent] = useState("")
     const [editTitle, setEditTitle] = useState("")
     const [fetchErr, setFetchErr] = useState(null)
@@ -20,7 +20,7 @@ export const DataProvider = ({ children }) => {
     const [editContent, setEditContent] = useState("")
     const [countContent, setCountContent] = useState(0)
     const [countEditContent, setCountEditContent] = useState(0)
-    const width = useWindowSize()
+    const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
 
     const fetchNotes = async () => {
         try {

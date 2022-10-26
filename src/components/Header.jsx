@@ -1,6 +1,9 @@
 import Navigation from "./Navigation"
 import { FaLaptop, FaTabletAlt, FaMobileAlt } from 'react-icons/fa'
-const Header = ({ search, onSetSearch, width }) => {
+import DataContext from "../context/DataContext"
+import { useContext } from 'react'
+const Header = () => {
+    const { width } = useContext(DataContext)
     return (
         <header>
             <div className="flex justify-between items-center px-2 py-4 bg-orange-400 text-3xl">
@@ -15,7 +18,7 @@ const Header = ({ search, onSetSearch, width }) => {
                             <FaLaptop />}
                 </p>
             </div>
-            <Navigation search={search} onSetSearch={onSetSearch} />
+            <Navigation />
         </header>
     )
 }

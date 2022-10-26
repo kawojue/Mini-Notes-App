@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-import { formatFetch } from '../formatFetch'
 import { manageID } from '../manageID'
+import { formatFetch } from '../formatFetch'
+import DataContext from '../context/DataContext'
+import { useState, useEffect, useContext } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
-const Note = ({ notes, setNotes, url }) => {
+const Note = () => {
+    const { notes, setNotes, url } = useContext(DataContext)
     const nav = useNavigate()
     const { id } = useParams()
     const [note, setNote] = useState({})

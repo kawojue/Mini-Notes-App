@@ -5,7 +5,7 @@ import DataContext from "../context/DataContext"
 const Notes = () => {
     const { handleSearch, fetchErr, isLoading } = useContext(DataContext)
     return (
-        <>
+        <main className="bg-white overflow-y-auto">
             {!fetchErr ?
                 <>{!isLoading ?
                     <>{handleSearch.length !== 0 ?
@@ -40,7 +40,7 @@ const Notes = () => {
                 <h3 className='info'>
                     {fetchErr}
                 </h3>}
-        </>
+        </main>
     )
 }
 

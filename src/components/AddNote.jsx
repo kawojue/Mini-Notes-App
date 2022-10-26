@@ -1,8 +1,10 @@
-import DataContext from "../context/DataContext"
 import { useContext } from 'react'
+import DataContext from "../context/DataContext"
 
 const AddNote = () => {
-    const { title, content, setTitle, setContent, addNote, countContent } = useContext(DataContext)
+    const { title, content, setTitle, setContent,
+        addNote, countContent } = useContext(DataContext)
+
     return (
         <form onSubmit={(e) => addNote(e)} className="new-note p-5 overflow-auto">
             <h2>Add New Note</h2>

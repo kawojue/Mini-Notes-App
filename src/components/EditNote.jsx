@@ -5,10 +5,14 @@ import DataContext from '../context/DataContext'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EditNote = () => {
-    const { url, notes, setNotes, editTitle, setEditTitle, editContent, setEditContent, getFullDateTime, countEditContent } = useContext(DataContext)
-    const { id } = useParams()
     const nav = useNavigate()
+    const { id } = useParams()
     const [msg, setMsg] = useState("")
+    const { url, notes, setNotes,
+        setEditContent, getFullDateTime,
+        editTitle, setEditTitle, editContent,
+        countEditContent } = useContext(DataContext)
+
 
     const fetchNotes = async id => {
         try {
@@ -25,6 +29,8 @@ const EditNote = () => {
     useEffect(() => {
         (async () => await fetchNotes(id))()
     }, [])
+
+
 
     const handleEdit = async e => {
         e.preventDefault()
@@ -45,6 +51,7 @@ const EditNote = () => {
 
         window.location.reload()
     }
+
 
     return (
         <>

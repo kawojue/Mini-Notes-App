@@ -5,13 +5,13 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const Note = () => {
-    const { notes, setNotes, url } = useContext(DataContext)
     const nav = useNavigate()
     const { id } = useParams()
     const [note, setNote] = useState({})
-    const [msg, setMsg] = useState("")
-    const [splittedContent, setSplittedContent] = useState([])
     const { title, datetime } = note
+    const [msg, setMsg] = useState("")
+    const { notes, setNotes, url } = useContext(DataContext)
+    const [splittedContent, setSplittedContent] = useState([])
 
     const getNote = async id => {
         try {
@@ -23,7 +23,6 @@ const Note = () => {
         } catch (err) {
             setMsg("Note not found!")
         }
-
     }
 
     useEffect(() => {

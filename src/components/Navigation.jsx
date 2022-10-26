@@ -12,7 +12,7 @@ const Navigation = () => {
                     <Link to="home">Home</Link>
                 </li>
                 <li>
-                    <Link to="note">Note</Link>
+                    <Link to="note/add">Note</Link>
                 </li>
                 <li>
                     <Link to="about">About</Link>

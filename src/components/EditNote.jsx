@@ -1,9 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { formatFetch } from '../formatFetch'
 import { manageID } from '../manageID'
+import { useState, useEffect, useContext } from 'react'
+import { formatFetch } from '../formatFetch'
+import DataContext from '../context/DataContext'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const EditNote = ({ url, notes, setNotes, editTitle, setEditTitle, editContent, setEditContent, getFullDateTime, countEditContent }) => {
+const EditNote = () => {
+    const { url, notes, setNotes, editTitle, setEditTitle, editContent, setEditContent, getFullDateTime, countEditContent } = useContext(DataContext)
     const { id } = useParams()
     const nav = useNavigate()
     const [msg, setMsg] = useState("")

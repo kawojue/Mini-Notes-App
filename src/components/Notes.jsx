@@ -1,16 +1,21 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import DataContext from "../context/DataContext"
 
-const Notes = ({ notes, fetchErr, isLoading }) => {
+const Notes = () => {
+    const { handleSearch, fetchErr, isLoading } = useContext(DataContext)
     return (
         <>
             {!fetchErr ?
                 <>{!isLoading ?
-                    <>{notes.length !== 0 ?
-                        <>{notes.map(note => (
+                    <>{handleSearch.length !== 0 ?
+                        <>{handleSearch.map(note => (
                             <Link key={note.id} to={`/note/${note.id}`} className="flex flex-col gap-5 w-full px-4 py-3 border-b-[1.5px] border-slate-400 text-slate-600 hover:text-black">
                                 <div>
                                     <h3 className="capitalize w-fit tracking-wider text-2xl font-medium cursor-pointer">
-                                        {note.title}
+                                        {note.title.split('').length > 23 ?
+                                            `${note.title.slice(0, 23) + "..."}` :
+                                            note.title}
                                     </h3>
                                     <p className="mt-1 text-[0.75rem]">
                                         {note.datetime}

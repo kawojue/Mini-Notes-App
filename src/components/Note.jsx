@@ -51,12 +51,12 @@ const Note = () => {
                         ))}
                     </div>
                     <div className="flex gap-5">
-                        <button className="btn hover:bg-red-500 trans" onClick={() => deleteNote(id)}>
-                            Delete
-                        </button>
                         <Link to={`/note/${id}/edit`} className="btn trans">
                             Edit
                         </Link>
+                        <button className="btn hover:bg-red-500 trans" onClick={() => deleteNote(id)}>
+                            Delete
+                        </button>
                     </div>
                 </article> :
                 <p>{msg}</p>}

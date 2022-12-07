@@ -13,14 +13,20 @@ const EditNote = () => {
         editTitle, setEditTitle, editContent,
         countEditContent } = useContext(DataContext)
 
+    const [oldEditTitle, setOldEditTitle] = useState('')
+    const [oldEditContent, setOldEditContent] = useState('')
+
+    const validToEdit = Boolean(oldEditTitle !== editTitle) ||
+        Boolean(oldEditContent !== editContent)
 
     const fetchNotes = async id => {
         try {
             const res = await fetch(formatFetch(url, id))
-            if (!res.ok) throw new Error("Note is not in the database.")
             const data = await res.json()
             setEditTitle(data.title)
+            setOldEditTitle(data.title)
             setEditContent(data.content)
+            setOldEditContent(data.content)
         } catch (err) {
             setMsg("Note is not in the database.")
         }
@@ -68,7 +74,10 @@ const EditNote = () => {
                             <p className="absolute top-0 right-0 text-sm">{countEditContent}</p>
                             <textarea id="content" value={editContent} onChange={(e) => setEditContent(e.target.value)} ></textarea>
                         </div>
-                        <button type="submit" className="btn trans">Edit</button>
+                        <button type="submit" disabled={!validToEdit}
+                            className="btn trans disabled:opacity-[50%]">
+                            Edit
+                        </button>
                     </article>
                 </form> :
                 <p>{msg}</p>}

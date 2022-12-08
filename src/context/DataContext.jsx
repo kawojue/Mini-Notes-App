@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect } from "react";
-import { format } from 'date-fns'
 import { fillID } from '../fillID'
-import useWindowSize from '../hooks/useWindowSize'
 import { useNavigate } from 'react-router-dom'
+import useWindowSize from '../hooks/useWindowSize'
+import { createContext, useState, useEffect } from "react";
+import { parseISO, formatDistanceToNow, format } from 'date-fns'
 
 const DataContext = createContext({})
 
@@ -20,6 +20,17 @@ export const DataProvider = ({ children }) => {
     const [editContent, setEditContent] = useState("")
     const [countContent, setCountContent] = useState(0)
     const [countEditContent, setCountEditContent] = useState(0)
+
+    const getFullTime = (timestamp) => {
+        let timePassed = ''
+        if (timestamp) {
+            const date = parseISO(timestamp)
+            const timePeriod = formatDistanceToNow(date)
+            timePassed = `${timePeriod} ago`
+        }
+        return timePassed
+    }
+
     const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
 
     const fetchNotes = async () => {
@@ -43,7 +54,7 @@ export const DataProvider = ({ children }) => {
         e.preventDefault()
 
         const id = fillID(notes)
-        const newNote = { id, title: title.trim(), content: content.trim(), datetime: getFullDateTime }
+        const newNote = { id, title: title.trim(), content: content.trim(), datetime: [...[getFullDateTime]], edited: false }
         setNotes([...notes, newNote])
 
         await fetch(url, {
@@ -78,7 +89,7 @@ export const DataProvider = ({ children }) => {
             fetchErr, isLoading, notes, setNotes, url,
             title, setTitle, content, setContent, addNote,
             editTitle, setEditTitle, editContent, setEditContent,
-            countContent, countEditContent
+            countContent, countEditContent, getFullTime
         }}>
             {children}
         </DataContext.Provider>

@@ -8,10 +8,12 @@ const Note = () => {
     const nav = useNavigate()
     const { id } = useParams()
     const [note, setNote] = useState({})
-    const { title, datetime } = note
+    const { title, edited, datetime } = note
     const [msg, setMsg] = useState("")
     const { notes, setNotes, url } = useContext(DataContext)
     const [splittedContent, setSplittedContent] = useState([])
+    const [time0, setTime0] = useState('')
+    const [time1, setTime1] = useState('')
 
     const getNote = async id => {
         try {
@@ -20,6 +22,12 @@ const Note = () => {
             const data = await res.json()
             setNote(data)
             setSplittedContent(data.content.split("\n"))
+            if (data.edited) {
+                setTime0(data.datetime[0])
+                setTime1(data.datetime[data.datetime.length - 1])
+            } else {
+                setTime0(data.datetime[0])
+            }
         } catch (err) {
             setMsg("Note not found!")
         }
@@ -44,7 +52,18 @@ const Note = () => {
             {manageID(id, notes) ?
                 <article className="p-5 overflow-auto">
                     <h2 className="capitalize mb-1">{title}</h2>
-                    <p className='text-sm'>{datetime}</p>
+                    <div className="text-xs">
+                        {!edited ?
+                            <p>
+                                Created: <span>{time0}</span>
+                            </p> :
+                            <p>
+                                Created: <span>{time0}</span> <br />
+                                Edited: <span className="font-light italic">
+                                    {time1} ({datetime.length - 1})
+                                </span>
+                            </p>}
+                    </div>
                     <div className="my-5 text-slate-600 text-lg leading-tight">
                         {splittedContent.map((content, index) => (
                             <p key={index}>{content}</p>

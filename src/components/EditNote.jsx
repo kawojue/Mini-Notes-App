@@ -19,8 +19,6 @@ const EditNote = () => {
     const validToEdit = Boolean(oldEditTitle !== editTitle) ||
         Boolean(oldEditContent !== editContent)
 
-    console.log(getFullTime(new Date().toISOString()))
-
     const fetchNotes = async id => {
         try {
             const res = await fetch(formatFetch(url, id))
@@ -42,11 +40,11 @@ const EditNote = () => {
 
     const handleEdit = async e => {
         e.preventDefault()
-        const newNotes = notes.map(note => note.id == id ? { id: parseInt(id), title: editTitle.trim(), content: editContent.trim(), edited: true, datetime: note.edited === false ? [note.datetime, ...[getFullTime(new Date().toISOString())]] : datetime[1] = getFullTime(new Date().toISOString()) } : note)
+        const newNotes = notes.map(note => note.id == id ? { id: parseInt(id), title: editTitle.trim(), content: editContent.trim(), edited: true, datetime: [...note.datetime, ...[getFullTime(new Date().toISOString())]] } : note)
 
-        console.log(newNotes)
         const activeNote = newNotes.filter(note => note.id == id)
         setNotes(newNotes)
+
         await fetch(formatFetch(url, id), {
             method: 'PATCH',
             headers: {
@@ -54,6 +52,7 @@ const EditNote = () => {
             },
             body: JSON.stringify(activeNote[0])
         })
+
 
         nav(`/note/${id}`)
         setEditTitle("")

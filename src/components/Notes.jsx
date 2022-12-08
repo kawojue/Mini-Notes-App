@@ -17,9 +17,18 @@ const Notes = () => {
                                             `${note.title.slice(0, 23) + "..."}` :
                                             note.title}
                                     </h3>
-                                    <p className="mt-1 text-[0.75rem]">
-                                        {note.datetime}
-                                    </p>
+                                    {note.edited ?
+                                        <>
+                                            <p className="mt-1 text-[0.75rem]">
+                                                Created: {note.datetime[0]}
+                                            </p>
+                                            <p className="mt-0.5 text-xs">
+                                                Edited: <span>&nbsp;{note.datetime[1]}</span>
+                                            </p>
+                                        </> :
+                                        <p className="mt-1 text-[0.75rem]">
+                                            {note.datetime[0]}
+                                        </p>}
                                 </div>
                                 <div>
                                     <h4>

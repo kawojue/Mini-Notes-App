@@ -8,7 +8,8 @@ const Note = () => {
     const nav = useNavigate()
     const { id } = useParams()
     const [note, setNote] = useState({})
-    const { title, edited, datetime } = note
+    const { title, edited } = note
+    const [countEdit, setCountEdit] = useState(0)
     const [msg, setMsg] = useState("")
     const { notes, setNotes, url } = useContext(DataContext)
     const [splittedContent, setSplittedContent] = useState([])
@@ -21,12 +22,14 @@ const Note = () => {
             if (!res.ok) throw new Error("Note not found!")
             const data = await res.json()
             setNote(data)
-            setSplittedContent(data.content.split("\n"))
-            if (data.edited) {
-                setTime0(data.datetime[0])
-                setTime1(data.datetime[data.datetime.length - 1])
+            const { edited, datetime, content } = data
+            setSplittedContent(content.split("\n"))
+            if (edited) {
+                setTime0(datetime[0])
+                setTime1(datetime[datetime.length - 1])
+                setCountEdit(datetime.length - 1)
             } else {
-                setTime0(data.datetime[0])
+                setTime0(datetime[0])
             }
         } catch (err) {
             setMsg("Note not found!")
@@ -55,12 +58,14 @@ const Note = () => {
                     <div className="text-xs">
                         {!edited ?
                             <p>
-                                Created: <span>{time0}</span>
+                                Created on <span>{time0}</span>
                             </p> :
                             <p>
-                                Created: <span>{time0}</span> <br />
-                                Edited: <span className="font-light italic">
-                                    {time1} ({datetime.length - 1})
+                                Created on <span>{time0}</span> <br />
+                                Edited <span className="font-light italic">
+                                    {time1} <span title={`edited ${countEdit} time${countEdit == 1 ? '' : 's'}`}>
+                                        ({countEdit})
+                                    </span>
                                 </span>
                             </p>}
                     </div>
@@ -73,7 +78,8 @@ const Note = () => {
                         <Link to={`/note/${id}/edit`} className="btn trans">
                             Edit
                         </Link>
-                        <button className="btn hover:bg-red-500 trans" onClick={() => deleteNote(id)}>
+                        <button className="btn trans hover:bg-red-500"
+                            onClick={() => deleteNote(id)}>
                             Delete
                         </button>
                     </div>

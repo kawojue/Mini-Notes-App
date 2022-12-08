@@ -57,8 +57,6 @@ const EditNote = () => {
         nav(`/note/${id}`)
         setEditTitle("")
         setEditContent("")
-
-        window.location.reload()
     }
 
 

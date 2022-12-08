@@ -23,7 +23,9 @@ const Notes = () => {
                                                 Created: {note.datetime[0]}
                                             </p>
                                             <p className="mt-0.5 text-xs">
-                                                Edited: <span>&nbsp;{note.datetime[1]}</span>
+                                                Last edits: <span className="font-light italic">
+                                                    {note.datetime[note.datetime.length - 1]}
+                                                </span>
                                             </p>
                                         </> :
                                         <p className="mt-1 text-[0.75rem]">

@@ -25,10 +25,10 @@ const Notes = () => {
                                                         <p className="mt-1 text-[0.75rem]">
                                                             Created on {note.datetime[0]}
                                                         </p>
-                                                        <p className="mt-0.5 text-xs">
-                                                            Modified <span className="font-light italic">
-                                                                {note.datetime[note.datetime.length - 1]}
-                                                            </span>
+                                                        <p className="mt-0.5 text-xs font-light">
+                                                            <i>
+                                                                Modified {note.datetime[note.datetime.length - 1]}
+                                                            </i>
                                                         </p>
                                                     </> :
                                                     <p className="mt-1 text-[0.75rem]">

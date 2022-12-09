@@ -62,11 +62,10 @@ const Note = () => {
                             </p> :
                             <p>
                                 Created on <span>{time0}</span> <br />
-                                Edited <span className="font-light italic">
-                                    {time1} <span title={`edited ${countEdit} time${countEdit == 1 ? '' : 's'}`}>
-                                        ({countEdit})
-                                    </span>
-                                </span>
+                                <i title={`edited ${countEdit} time${countEdit == 1 ? '' : 's'}`}
+                                    className="font-light">
+                                    Edited {time1} ({countEdit})
+                                </i>
                             </p>}
                     </div>
                     <div className="my-5 text-slate-600 text-lg leading-tight">

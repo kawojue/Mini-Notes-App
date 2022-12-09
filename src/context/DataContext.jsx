@@ -82,7 +82,10 @@ export const DataProvider = ({ children }) => {
             const { edited, datetime, ISOStringDate } = note
             if (edited) {
                 const updatedTime = getFullTime(ISOStringDate)
-                return { ...note, datetime: [...datetime.slice(0, datetime.length - 1), updatedTime] }
+                return {
+                    ...note,
+                    datetime: [...datetime.slice(0, datetime.length - 1), updatedTime]
+                }
             } else {
                 return note
             }

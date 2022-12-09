@@ -52,9 +52,15 @@ export const DataProvider = ({ children }) => {
 
     const addNote = async e => {
         e.preventDefault()
-
         const id = fillID(notes)
-        const newNote = { id, title: title.trim(), content: content.trim(), datetime: [...[getFullDateTime]], edited: false }
+        const newNote = {
+            id,
+            title: title.trim(),
+            content: content.trim(),
+            datetime: [...[getFullDateTime]],
+            edited: false,
+            ISOStringDate: new Date().toISOString()
+        }
         setNotes([...notes, newNote])
 
         await fetch(url, {
@@ -67,14 +73,38 @@ export const DataProvider = ({ children }) => {
 
         setTitle("")
         setContent("")
-
         nav('/')
     }
+
+    const handleEditedTime = async () => {
+        const newNotes = notes.map(note => note.edited ?
+            {
+                ...note,
+                datetime: [...note.datetime, note.datetime[note.datetime.length - 1] = getFullTime(note.ISOStringDate)]
+            } :
+            note)
+
+        console.log(newNotes)
+
+        // await fetch(url, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(newNotes)
+        // })
+    }
+
+    (async () => await handleEditedTime())()
+
+    // useEffect(() => {
+    //     (async () => await handleEditedTime())()
+    // })
 
     const handleSearch = notes.filter(note =>
         ((note.title).toLowerCase()).includes(search.toLowerCase()) ||
         ((note.content).toLowerCase()).includes(search.toLowerCase()) ||
-        ((note.datetime).toLowerCase()).includes(search.toLowerCase()))
+        ((note.datetime[0]).toLowerCase()).includes(search.toLowerCase()))
 
     useEffect(() => {
         const splitContent = content.split('')

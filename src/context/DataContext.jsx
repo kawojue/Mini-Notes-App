@@ -1,4 +1,5 @@
 import { fillID } from '../fillID'
+import { formatFetch } from '../formatFetch'
 import { useNavigate } from 'react-router-dom'
 import useWindowSize from '../hooks/useWindowSize'
 import { createContext, useState, useEffect } from "react";
@@ -76,30 +77,34 @@ export const DataProvider = ({ children }) => {
         nav('/')
     }
 
-    const handleEditedTime = async () => {
-        const newNotes = notes.map(note => note.edited ?
-            {
-                ...note,
-                datetime: [...note.datetime, note.datetime[note.datetime.length - 1] = getFullTime(note.ISOStringDate)]
-            } :
-            note)
+    const handleEditedTime = () => {
+        const newNotes = notes.map(note => {
+            const { edited, datetime, ISOStringDate } = note
+            if (edited) {
+                const updatedTime = getFullTime(ISOStringDate)
+                return { ...note, datetime: [...datetime.slice(0, datetime.length - 1), updatedTime] }
+            } else {
+                return note
+            }
+        })
 
-        console.log(newNotes)
-
-        // await fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(newNotes)
-        // })
+        newNotes.forEach(async (note, index) => {
+            const { id, edited } = note
+            if (edited) {
+                await fetch(formatFetch(url, id), {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newNotes[index])
+                })
+            }
+        })
     }
 
-    (async () => await handleEditedTime())()
-
-    // useEffect(() => {
-    //     (async () => await handleEditedTime())()
-    // })
+    useEffect(() => {
+        handleEditedTime()
+    }, [notes])
 
     const handleSearch = notes.filter(note =>
         ((note.title).toLowerCase()).includes(search.toLowerCase()) ||

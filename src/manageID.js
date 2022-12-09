@@ -5,6 +5,5 @@ export const manageID = (ID, arrays) => {
     })
 
     const manageID = getIDS.includes(parseInt(ID))
-
     return manageID
 }

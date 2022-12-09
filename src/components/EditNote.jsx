@@ -36,11 +36,18 @@ const EditNote = () => {
         (async () => await fetchNotes(id))()
     }, [])
 
-
-
     const handleEdit = async e => {
         e.preventDefault()
-        const newNotes = notes.map(note => note.id == id ? { id: parseInt(id), title: editTitle.trim(), content: editContent.trim(), edited: true, datetime: [...note.datetime, ...[getFullTime(new Date().toISOString())]] } : note)
+        const newNotes = notes.map(note => note.id == id ?
+            {
+                id: parseInt(id),
+                title: editTitle.trim(),
+                content: editContent.trim(),
+                edited: true,
+                datetime: [...note.datetime, ...[getFullTime(new Date().toISOString())]],
+                ISOStringDate: new Date().toISOString()
+            } :
+            note)
 
         const activeNote = newNotes.filter(note => note.id == id)
         setNotes(newNotes)
@@ -58,7 +65,6 @@ const EditNote = () => {
         setEditTitle("")
         setEditContent("")
     }
-
 
     return (
         <>

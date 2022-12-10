@@ -1,5 +1,5 @@
 import { fillID } from '../fillID'
-import { formatFetch } from '../formatFetch'
+import { updateItem } from '../updateItem'
 import { useNavigate } from 'react-router-dom'
 import useWindowSize from '../hooks/useWindowSize'
 import { createContext, useState, useEffect } from "react";
@@ -94,13 +94,7 @@ export const DataProvider = ({ children }) => {
         newNotes.forEach(async (note, index) => {
             const { id, edited } = note
             if (edited) {
-                await fetch(formatFetch(url, id), {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(newNotes[index])
-                })
+                (async () => updateItem(url, id, newNotes[index]))()
             }
         })
     }

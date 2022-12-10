@@ -1,7 +1,8 @@
 import { manageID } from '../manageID'
-import { useState, useEffect, useContext } from 'react'
+import { updateItem } from '../updateItem'
 import { formatFetch } from '../formatFetch'
 import DataContext from '../context/DataContext'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EditNote = () => {
@@ -16,8 +17,8 @@ const EditNote = () => {
     const [oldEditTitle, setOldEditTitle] = useState('')
     const [oldEditContent, setOldEditContent] = useState('')
 
-    const validToEdit = Boolean(oldEditTitle !== editTitle) ||
-        Boolean(oldEditContent !== editContent)
+    const validToEdit = (Boolean(oldEditTitle !== editTitle) ||
+        Boolean(oldEditContent !== editContent)) && Boolean(editContent)
 
     const fetchNotes = async id => {
         try {
@@ -52,14 +53,9 @@ const EditNote = () => {
         const activeNote = newNotes.filter(note => note.id == id)
         setNotes(newNotes)
 
-        await fetch(formatFetch(url, id), {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(activeNote[0])
-        })
-
+        if (true) {
+            (async () => await updateItem(url, id, activeNote[0]))()
+        }
 
         nav(`/note/${id}`)
         setEditTitle("")
@@ -69,7 +65,7 @@ const EditNote = () => {
     return (
         <>
             {manageID(id, notes) ?
-                <form onSubmit={(e) => handleEdit(e)} className="new-note p-5 overflow-auto">
+                <form onSubmit={(async e => await handleEdit(e))} className="new-note p-5 overflow-auto">
                     <h2>Edit Note</h2>
                     <article className="flex flex-col gap-3 mt-5">
                         <div>

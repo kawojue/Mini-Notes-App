@@ -1,4 +1,5 @@
 import { fillID } from '../fillID'
+import { FaCopy } from 'react-icons/fa'
 import { updateItem } from '../updateItem'
 import { useNavigate } from 'react-router-dom'
 import useWindowSize from '../hooks/useWindowSize'
@@ -10,11 +11,12 @@ const DataContext = createContext({})
 export const DataProvider = ({ children }) => {
     const nav = useNavigate()
     const width = useWindowSize()
-    const [notes, setNotes] = useState([])
     const [title, setTitle] = useState("")
+    const [notes, setNotes] = useState([])
     const [search, setSearch] = useState("")
     const url = "http://localhost:5500/notes"
     const [content, setContent] = useState("")
+    const [copy, setCopy] = useState(<FaCopy />)
     const [editTitle, setEditTitle] = useState("")
     const [fetchErr, setFetchErr] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -43,13 +45,6 @@ export const DataProvider = ({ children }) => {
             setFetchErr("Please, reload the page.")
         }
     }
-
-    useEffect(() => {
-        setTimeout(() => {
-            (async () => await fetchNotes())()
-            setIsLoading(false)
-        }, 1000)
-    }, [])
 
     const addNote = async e => {
         e.preventDefault()
@@ -99,14 +94,33 @@ export const DataProvider = ({ children }) => {
         })
     }
 
-    useEffect(() => {
-        handleEditedTime()
-    }, [notes])
+    const onCopy = async value => {
+        try {
+            await navigator.clipboard.writeText(value)
+            setCopy("Copied!")
+            setTimeout(() => {
+                setCopy(<FaCopy />)
+            }, 2000)
+        } catch (err) {
+            setCopy('Failed to copy!')
+        }
+    }
 
     const handleSearch = notes.filter(note =>
         ((note.title).toLowerCase()).includes(search.toLowerCase()) ||
         ((note.content).toLowerCase()).includes(search.toLowerCase()) ||
         ((note.datetime[0]).toLowerCase()).includes(search.toLowerCase()))
+
+    useEffect(() => {
+        handleEditedTime()
+    }, [notes])
+
+    useEffect(() => {
+        setTimeout(() => {
+            (async () => await fetchNotes())()
+            setIsLoading(false)
+        }, 1000)
+    }, [])
 
     useEffect(() => {
         const splitContent = content.split('')
@@ -121,7 +135,7 @@ export const DataProvider = ({ children }) => {
             fetchErr, isLoading, notes, setNotes, url,
             title, setTitle, content, setContent, addNote,
             editTitle, setEditTitle, editContent, setEditContent,
-            countContent, countEditContent, getFullTime
+            countContent, countEditContent, getFullTime, onCopy
         }}>
             {children}
         </DataContext.Provider>

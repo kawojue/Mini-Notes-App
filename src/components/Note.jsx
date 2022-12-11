@@ -11,10 +11,11 @@ const Note = () => {
     const { title, edited } = note
     const [countEdit, setCountEdit] = useState(0)
     const [msg, setMsg] = useState("")
-    const { notes, setNotes, url } = useContext(DataContext)
+    const { notes, setNotes, url, copy, onCopy } = useContext(DataContext)
     const [splittedContent, setSplittedContent] = useState([])
     const [time0, setTime0] = useState('')
     const [time1, setTime1] = useState('')
+    const [contentCopied, setContentCopied] = useState('')
 
     const getNote = async id => {
         try {
@@ -24,6 +25,7 @@ const Note = () => {
             setNote(data)
             const { edited, datetime, content } = data
             setSplittedContent(content.split("\n"))
+            setContentCopied(content)
             if (edited) {
                 setTime0(datetime[0])
                 setTime1(datetime[datetime.length - 1])
@@ -81,6 +83,8 @@ const Note = () => {
                             onClick={() => deleteNote(id)}>
                             Delete
                         </button>
+                        <button onClick={() => onCopy(contentCopied)}
+                            className="btn">{copy}</button>
                     </div>
                 </article> :
                 <p>{msg}</p>}

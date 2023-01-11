@@ -3,7 +3,7 @@ import { FaCopy } from 'react-icons/fa'
 import { updateItem } from '../updateItem'
 import { useNavigate } from 'react-router-dom'
 import useWindowSize from '../hooks/useWindowSize'
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react"
 import { parseISO, formatDistanceToNow, format } from 'date-fns'
 
 const DataContext = createContext({})
@@ -14,15 +14,16 @@ export const DataProvider = ({ children }) => {
     const [title, setTitle] = useState("")
     const [notes, setNotes] = useState([])
     const [search, setSearch] = useState("")
-    const url = "http://localhost:5500/notes"
     const [content, setContent] = useState("")
     const [copy, setCopy] = useState(<FaCopy />)
     const [editTitle, setEditTitle] = useState("")
     const [fetchErr, setFetchErr] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const url = new URL("http://localhost:5500/notes")
     const [editContent, setEditContent] = useState("")
     const [countContent, setCountContent] = useState(0)
     const [countEditContent, setCountEditContent] = useState(0)
+    const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
 
     const getFullTime = (timestamp) => {
         let timePassed = ''
@@ -33,8 +34,6 @@ export const DataProvider = ({ children }) => {
         }
         return timePassed
     }
-
-    const getFullDateTime = format(new Date(), 'MMMM dd, yyyy pp')
 
     const fetchNotes = async () => {
         try {
@@ -100,7 +99,7 @@ export const DataProvider = ({ children }) => {
             setCopy("Copied!")
             setTimeout(() => {
                 setCopy(<FaCopy />)
-            }, 2000)
+            }, 1200)
         } catch (err) {
             setCopy('Failed to copy!')
         }
@@ -135,7 +134,7 @@ export const DataProvider = ({ children }) => {
             fetchErr, isLoading, notes, setNotes, url,
             title, setTitle, content, setContent, addNote,
             editTitle, setEditTitle, editContent, setEditContent,
-            countContent, countEditContent, getFullTime, onCopy
+            countContent, countEditContent, getFullTime, onCopy, copy
         }}>
             {children}
         </DataContext.Provider>

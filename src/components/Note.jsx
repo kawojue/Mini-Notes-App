@@ -84,7 +84,7 @@ const Note = () => {
                             Delete
                         </button>
                         <button onClick={() => onCopy(contentCopied)}
-                            className="btn">{copy}</button>
+                            className="btn trans">{copy}</button>
                     </div>
                 </article> :
                 <p>{msg}</p>}
